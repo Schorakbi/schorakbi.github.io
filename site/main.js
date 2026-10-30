@@ -66,7 +66,7 @@ const STATIONS = [
   { id: "computer", pos: [6.1, -4.1], focus: [7.4, 1.2, -5.5], name: { en: "Computer", fr: "Ordinateur" },
     fact: { en: "seqctl, a Go CLI that automates daily infrastructure work. And an AI incident investigator (Go, Lambda, Claude API).", fr: "seqctl, un CLI Go qui automatise l'exploitation. Et un investigateur d'incidents IA (Go, Lambda, API Claude)." } },
   { id: "navigation", pos: [-7.2, -2.6], focus: [-3.4, 12.8, 0], wip: true, name: { en: "Navigation", fr: "Navigation" },
-    fact: { en: "Moving the platform to a self-hosted HashiCorp Nomad stack, so it no longer depends on one cloud. Step 1 of 15 delivered.", fr: "Migration vers une pile HashiCorp Nomad auto-hébergée, pour ne plus dépendre d'un seul cloud. Étape 1 sur 15 livrée." } },
+    fact: { en: "A hardened, self-hosted HashiCorp Nomad cluster with ACLs and private-only listeners.", fr: "Un cluster HashiCorp Nomad auto-hébergé et durci, avec ACL et écoute sur réseau privé uniquement." } },
 ];
 // boarding point: just past the foot of the ramp, outside its collision zone
 const RAMP = new THREE.Vector3(0, 0, 7.8);

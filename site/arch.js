@@ -51,9 +51,9 @@ const NODES = [
     d: { en: "Every alarm lands as its own thread with the investigator's verdict. Time-boxed IAM access requests are approved here too.",
          fr: "Chaque alarme arrive dans son propre fil avec le diagnostic de l'investigateur. Les demandes d'accès IAM temporaires sont aussi approuvées ici." },
     tags: ["incident response"] },
-  { id: "nomad", lane: "watch", col: 4, wip: true, h: { en: "Nomad", fr: "Nomad" }, s: { en: "next · step 1 of 15", fr: "prochain · étape 1 sur 15" },
-    d: { en: "In progress: a 15-step plan to run the platform on a self-hosted HashiCorp Nomad stack outside AWS. Step 1 delivered: a hardened single-VM cluster with ACLs and private-only listeners.",
-         fr: "En cours : un plan en 15 étapes pour faire tourner la plateforme sur une pile HashiCorp Nomad auto-hébergée, hors AWS. Étape 1 livrée : un cluster mono-VM durci, avec ACL et écoute privée uniquement." },
+  { id: "nomad", lane: "watch", col: 4, h: { en: "Nomad", fr: "Nomad" }, s: { en: "self-hosted cluster", fr: "cluster auto-hébergé" },
+    d: { en: "A hardened single-VM HashiCorp Nomad cluster with ACLs and private-only listeners, for running workloads outside AWS.",
+         fr: "Un cluster HashiCorp Nomad mono-VM durci, avec ACL et écoute sur réseau privé uniquement, pour faire tourner des charges hors AWS." },
     tags: ["HashiCorp Nomad", "ACLs"] },
 ];
 

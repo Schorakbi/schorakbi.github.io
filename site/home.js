@@ -14,6 +14,9 @@ const UI = {
     archK: "Architecture · simplified", archH: "How it fits <em>together</em>",
     archSub: "The platform I run, from a pull request to a production alarm. Pick any part to see what I built there.",
     archNote: "Simplified and generic. Built from my public CV, no internal details.",
+    shipsK: "This site", shipsH: "How this site <em>ships</em>",
+    shipsSub: "Deployed the way I deploy production. Every push runs the checks below, and only a green pipeline reaches GitHub Pages. No stored secrets.",
+    pipeRuns: "Pipeline runs ↗", pipeSrc: "Workflow file ↗", pipeRepo: "Source ↗",
     expK: "Trajectory", expH: "Experience & education",
     stackK: "Toolbox", stackH: "Stack",
     askH: "Ask me <em>anything</em>",
@@ -35,6 +38,9 @@ const UI = {
     archK: "Architecture · simplifiée", archH: "Comment tout <em>s'assemble</em>",
     archSub: "La plateforme que je fais tourner, de la pull request à l'alarme de production. Choisissez un élément pour voir ce que j'y ai construit.",
     archNote: "Vue simplifiée et générique, construite à partir de mon CV public, sans détail interne.",
+    shipsK: "Ce site", shipsH: "Comment ce site est <em>déployé</em>",
+    shipsSub: "Déployé comme je déploie la production. Chaque push lance les vérifications ci-dessous, et seul un pipeline vert arrive sur GitHub Pages. Aucun secret stocké.",
+    pipeRuns: "Exécutions du pipeline ↗", pipeSrc: "Fichier du workflow ↗", pipeRepo: "Code source ↗",
     expK: "Trajectoire", expH: "Expérience & formation",
     stackK: "Boîte à outils", stackH: "Stack",
     askH: "Posez-moi <em>vos questions</em>",
@@ -83,11 +89,11 @@ const SMALL = [
     p: { en: "Replaced ad-hoc scripts: CI/CD change detection, environment scaffolding, secrets validation, database provisioning and incident tooling.", fr: "Remplace les scripts ad hoc : détection des changements en CI/CD, création d'environnements, validation des secrets, bases de données et outils d'incident." } },
 ];
 
-const NOW = {
-  k: { en: "In progress", fr: "En cours" },
-  h: { en: "Self-hosted platform on HashiCorp Nomad", fr: "Plateforme auto-hébergée sur HashiCorp Nomad" },
-  p: { en: "Leading a 15-step plan to run the platform outside AWS. Step 1 delivered: a hardened single-VM Nomad cluster with ACLs and private-only listeners.", fr: "Je pilote un plan en 15 étapes pour faire tourner la plateforme hors AWS. Étape 1 livrée : un cluster Nomad mono-VM durci, avec ACL et écoute sur réseau privé uniquement." },
-  step: { en: "Step 1 of 15", fr: "Étape 1 sur 15" },
+const NOMAD = {
+  k: { en: "Self-hosting", fr: "Auto-hébergement" },
+  h: { en: "Self-hosted HashiCorp Nomad cluster", fr: "Cluster HashiCorp Nomad auto-hébergé" },
+  p: { en: "Built a hardened single-VM Nomad cluster with ACLs and private-only listeners, for running workloads outside AWS.", fr: "Construction d'un cluster Nomad mono-VM durci, avec ACL et écoute sur réseau privé uniquement, pour faire tourner des charges hors AWS." },
+  tags: ["HashiCorp Nomad", "ACLs", "Linux"],
 };
 
 // Small line icons, drawn with currentColor.
@@ -98,6 +104,7 @@ const ICONS = {
   obs: '<path d="M3 17l5-6 4 3 4-7 5 5"/><path d="M3 21h18"/>',
   ai: '<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5M9 11h4M11 9v4"/>',
   sec: '<path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/>',
+  nomad: '<path d="M12 2l8.5 5v10L12 22l-8.5-5V7L12 2z"/><path d="M12 12l8.5-5M12 12v10M12 12L3.5 7"/>',
   cli: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M12 15h5"/>',
 };
 const icon = (k) => `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS[k]}</svg>`;
@@ -146,10 +153,9 @@ function render() {
     </article>`).join("");
 
   document.getElementById("nowCard").innerHTML = `
-    <p class="kicker mono"><span class="pulse" aria-hidden="true"></span>${tr(NOW.k)}</p>
-    <div class="now-body"><h3>${tr(NOW.h)}</h3><p>${tr(NOW.p)}</p></div>
-    <div class="now-prog" role="img" aria-label="${tr(NOW.step)}"><span class="mono">${tr(NOW.step)}</span>
-      <div class="steps">${Array.from({ length: 15 }, (_, i) => `<i${i === 0 ? ' class="on"' : ""}></i>`).join("")}</div></div>`;
+    <div class="card-top">${icon("nomad")}<p class="kicker mono">${tr(NOMAD.k)}</p></div>
+    <div class="now-body"><h3>${tr(NOMAD.h)}</h3><p>${tr(NOMAD.p)}</p></div>
+    <ul class="tags">${NOMAD.tags.map((t) => `<li>${t}</li>`).join("")}</ul>`;
 
   document.getElementById("timeline").innerHTML = TIMELINE.map((j) => `<li class="${j.now ? "now" : ""}${j.edu ? " edu" : ""}">
       <span class="dot" aria-hidden="true"></span>
@@ -163,6 +169,9 @@ function render() {
   document.getElementById("langs").innerHTML = nb(lang === "en"
     ? "Arabic (native) · French (fluent) · English (professional) · German (elementary)"
     : "Arabe (langue maternelle) · français (courant) · anglais (professionnel) · allemand (notions)");
+
+  document.getElementById("pipe").innerHTML = PIPE.map((p, i) => `<li><span class="pn mono">${String(i + 1).padStart(2, "0")}</span><b>${tr(p.h)}</b><span>${tr(p.p)}</span></li>`).join("");
+  renderRun();
 
   const other = lang === "en" ? "fr" : "en";
   document.getElementById("cvBtn").href = CV_PDF[lang];
@@ -209,6 +218,37 @@ function splitSkills(v) {
     if (ch === "," && depth === 0) { out.push(cur.trim()); cur = ""; } else cur += ch;
   }
   return [...out, cur.trim()].filter(Boolean);
+}
+
+// The real pipeline in .github/workflows/pages.yml, step by step.
+const PIPE = [
+  { h: { en: "Push", fr: "Push" }, p: { en: "main or a pull request", fr: "main ou une pull request" } },
+  { h: { en: "Leak check", fr: "Anti-fuite" }, p: { en: "no internal names, AWS keys or phone number, PDFs included", fr: "ni noms internes, ni clés AWS, ni téléphone, PDF compris" } },
+  { h: { en: "Links", fr: "Liens" }, p: { en: "every internal link resolves (lychee)", fr: "chaque lien interne fonctionne (lychee)" } },
+  { h: { en: "Lighthouse", fr: "Lighthouse" }, p: { en: "accessibility and SEO at 90+ or the deploy stops", fr: "accessibilité et SEO à 90+ sinon le déploiement s'arrête" } },
+  { h: { en: "Deploy", fr: "Déploiement" }, p: { en: "GitHub Pages with a short-lived OIDC token", fr: "GitHub Pages avec un jeton OIDC éphémère" } },
+];
+
+// Latest run from the public GitHub API. Optional: if it fails, the line stays hidden.
+let lastRun = null;
+fetch("https://api.github.com/repos/Schorakbi/schorakbi.github.io/actions/runs?per_page=1&branch=main")
+  .then((r) => (r.ok ? r.json() : null))
+  .then((d) => { lastRun = d?.workflow_runs?.[0] || null; renderRun(); })
+  .catch(() => {});
+
+function ago(iso) {
+  const m = Math.max(1, Math.round((Date.now() - new Date(iso)) / 60000));
+  const [n, u] = m < 60 ? [m, "min"] : m < 2880 ? [Math.round(m / 60), "h"] : [Math.round(m / 1440), lang === "fr" ? "j" : "d"];
+  return lang === "fr" ? `il y a ${n} ${u}` : `${n} ${u} ago`;
+}
+function renderRun() {
+  const box = document.getElementById("lastRun");
+  if (!lastRun) return;
+  const ok = lastRun.conclusion === "success", running = lastRun.status !== "completed";
+  const state = running ? (lang === "fr" ? "en cours" : "running") : ok ? (lang === "fr" ? "réussi" : "passed") : (lang === "fr" ? "échoué" : "failed");
+  box.className = "run mono " + (running ? "wip" : ok ? "ok" : "bad");
+  box.innerHTML = nb(`<i></i>${lang === "fr" ? "Dernier déploiement" : "Last deploy"} · <a href="${lastRun.html_url}" target="_blank" rel="noopener">${state}</a> · ${ago(lastRun.updated_at)} · <code>${lastRun.head_sha.slice(0, 7)}</code>`);
+  box.hidden = false;
 }
 
 document.getElementById("copyMail").onclick = async (e) => {
