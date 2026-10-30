@@ -1,0 +1,12 @@
+# Earlier prototypes, kept locally only. They predate the James renaming and must never be published.
+3d/
+pixel/
+blueprint/
+v1-poll/
+gen-site-cv.js
+
+# Local tooling
+node_modules/
+.lighthouseci/
+.DS_Store
+Thumbs.db

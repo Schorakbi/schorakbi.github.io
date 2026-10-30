@@ -1,0 +1,39 @@
+/* Plain CV page. Two-column sections on wide screens, prints clean on paper. */
+.cv { padding: 56px 0 80px; max-width: 920px; }
+.cv-head { padding-bottom: 36px; border-bottom: 1px solid var(--line); }
+.cv-head h1 { font-size: clamp(48px, 7vw, 80px); }
+.cv-title { font-size: 20px; margin: 10px 0 8px; }
+.cv-contact { font-size: 13px; color: var(--muted); margin: 0 0 24px; line-height: 1.8; }
+.cv-contact a { text-decoration: none; border-bottom: 1px solid var(--line-strong); }
+.cv-contact a:hover { color: var(--accent); border-color: var(--accent); }
+
+.cv-sec { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 28px; padding: 34px 0; border-bottom: 1px solid var(--line); }
+.cv-sec:last-child { border-bottom: 0; }
+.cv-h { margin: 4px 0 0; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.cv-sec p { margin: 0 0 10px; }
+.skills { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 10px 22px; margin: 0; }
+.skills dt { font-weight: 600; }
+.skills dd { margin: 0; color: var(--muted); }
+.job + .job { margin-top: 30px; }
+.job-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.job h3 { margin: 0; font: 600 18px/1.35 var(--sans); }
+.when { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.org { color: var(--muted); margin: 2px 0 10px !important; }
+.job ul { margin: 0; padding-left: 18px; }
+.job li { margin-bottom: 8px; }
+.job li::marker { color: var(--accent); }
+
+@media (max-width: 720px) {
+  .cv { padding-top: 36px; }
+  .cv-sec { grid-template-columns: 1fr; gap: 14px; padding: 28px 0; }
+  .skills { grid-template-columns: 1fr; gap: 2px; }
+  .skills dd { margin-bottom: 10px; }
+}
+
+@media print {
+  :root, [data-theme] { --bg: #fff; --text: #000; --muted: #333; --accent: #1f3864; --line: #ccc; --line-strong: #999; }
+  body { background: #fff; }
+  .bar, #sky, .row-btns { display: none; }
+  .cv { padding: 0; }
+  .cv-sec { break-inside: avoid; padding: 16px 0; }
+}

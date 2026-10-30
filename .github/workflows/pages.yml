@@ -1,0 +1,65 @@
+# Checks the site on every push and pull request, deploys main to GitHub Pages.
+# No stored secrets: Pages deploys with the workflow's short-lived OIDC token.
+name: Site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: No internal names, secrets or phone number in the published files
+        run: |
+          sudo apt-get install -y -qq poppler-utils >/dev/null
+          for f in site/cv/*.pdf; do pdftotext "$f" "${f%.pdf}.txt"; done
+          if grep -rniE '\bnova\b|AKIA[0-9A-Z]{16}|[0-9]{12}\.dkr\.ecr|\+[0-9]{3} ?[0-9]{2} ?[0-9]{3}' site/ --include='*.html' --include='*.js' --include='*.css' --include='*.txt'; then
+            echo "::error::Found text that must not be published"; exit 1
+          fi
+          rm -f site/cv/*.txt
+
+      - name: Internal links resolve
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --offline --no-progress --root-dir "${{ github.workspace }}/site" 'site/**/*.html'
+          fail: true
+
+      - name: Lighthouse
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: ./lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4
