@@ -2,8 +2,8 @@
 // The page is readable before this loads. It pauses off screen and in hidden tabs, and if WebGL
 // is missing the CSS planet behind it simply stays.
 import * as THREE from "three";
-import * as W from "./world.js";
-import * as P from "./props.js";
+import * as W from "./world.js?v=dev";
+import * as P from "./props.js?v=dev";
 
 const wrap = document.querySelector(".hero-art");
 const canvas = document.getElementById("hero3d");

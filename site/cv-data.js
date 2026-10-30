@@ -60,7 +60,7 @@ window.CV = {
        "Built observability on Amazon Managed Prometheus, Grafana, OpenTelemetry and CloudWatch: 21 production alarms (crash loops, OOM, DLQ, 5xx, RDS) and PostgreSQL slow-query insight with pg_stat_statements.",
        "Hardened security for ISO 27001: time-boxed IAM access through a Slack approval bot with CloudTrail audit, secrets kept out of Terraform state, GuardDuty/WAF monitoring, branch protection as code, audit architecture documents.",
        "Built seqctl, a Go CLI that replaced ad-hoc scripts and automates daily infrastructure work: CI/CD change detection, environment scaffolding, secrets validation, database provisioning and incident tooling.",
-       "Leading a 15-step plan to run the platform on a self-hosted HashiCorp Nomad stack outside AWS. Delivered step 1: a hardened single-VM Nomad cluster with ACLs and private-only listeners."
+       "Leading the move of the platform to a self-hosted HashiCorp Nomad stack outside AWS. Delivered a hardened single-VM Nomad cluster with ACLs and private-only listeners."
       ]
      },
      {
@@ -167,7 +167,7 @@ window.CV = {
        "Mise en place de l'observabilité avec Amazon Managed Prometheus, Grafana, OpenTelemetry et CloudWatch : 21 alarmes de production (crash loops, OOM, DLQ, 5xx, RDS) et analyse des requêtes lentes PostgreSQL avec pg_stat_statements.",
        "Renforcement de la sécurité pour l'ISO 27001 : accès IAM temporaires via un bot Slack d'approbation audité par CloudTrail, secrets hors de l'état Terraform, supervision GuardDuty/WAF, protection des branches en code, documentation d'architecture pour l'audit.",
        "Développement de seqctl, un CLI en Go qui remplace les scripts ad hoc et automatise l'exploitation : détection des changements en CI/CD, création d'environnements, validation des secrets, bases de données et outils d'incident.",
-       "Pilotage d'un plan en 15 étapes pour faire tourner la plateforme sur une pile HashiCorp Nomad auto-hébergée, hors AWS. Étape 1 livrée : un cluster Nomad mono-VM durci, avec ACL et écoute sur réseau privé uniquement."
+       "Pilotage de la migration de la plateforme vers une pile HashiCorp Nomad auto-hébergée, hors AWS. Livraison d'un cluster Nomad mono-VM durci, avec ACL et écoute sur réseau privé uniquement."
       ]
      },
      {

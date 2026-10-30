@@ -165,7 +165,7 @@ function render() {
 
   const skills = CV_SKILLS[lang];
   document.getElementById("stackList").innerHTML = skills.map(([k, v]) =>
-    `<div><dt class="mono">${k}</dt><dd>${splitSkills(v).map(chip).join("")}</dd></div>`).join("");
+    `<div><dt class="mono">${k}</dt><dd>${splitSkills(v).map(skill).join('<span class="sep" aria-hidden="true"> · </span>')}</dd></div>`).join("");
   document.getElementById("langs").innerHTML = nb(lang === "en"
     ? "Arabic (native) · French (fluent) · English (professional) · German (elementary)"
     : "Arabe (langue maternelle) · français (courant) · anglais (professionnel) · allemand (notions)");
@@ -203,11 +203,10 @@ const CV_SKILLS = {
     ["Langages", "Go, Python, Bash, SQL, HCL, TypeScript"],
   ],
 };
-// "AWS (ECS, Lambda)" becomes a label followed by one chip per service.
-const chip = (s) => {
+// "AWS (ECS, Lambda)" keeps its details in brackets, with the group name in bold.
+const skill = (s) => {
   const m = s.match(/^(.*?)\s*\((.*)\)$/);
-  if (!m) return `<span>${s}</span>`;
-  return `<b>${m[1]}</b>${m[2].split(",").map((x) => `<span>${x.trim()}</span>`).join("")}<i class="br"></i>`;
+  return m ? `<span class="sk"><b>${m[1]}</b> <span class="sub">(${m[2]})</span></span>` : `<span class="sk">${s}</span>`;
 };
 function splitSkills(v) {
   const out = [];

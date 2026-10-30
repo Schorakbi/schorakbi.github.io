@@ -57,6 +57,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: Stamp file links with the commit, so browsers never mix old and new files
+        run: sed -i "s/?v=dev/?v=${GITHUB_SHA::7}/g" site/*.html site/*.js
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

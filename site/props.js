@@ -2,7 +2,7 @@
 // Smooth shading, rounded edges and small canvas textures, so nothing reads as a plain box.
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
-import { COLORS, groundHeight } from "./world.js";
+import { COLORS, groundHeight } from "./world.js?v=dev";
 
 const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.5, metalness: 0.15, ...o });
 const glow = (color, intensity = 2) => new THREE.MeshStandardMaterial({ color: "#000", emissive: color, emissiveIntensity: intensity });

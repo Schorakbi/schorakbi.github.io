@@ -6,8 +6,8 @@ import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
-import * as W from "./world.js";
-import * as P from "./props.js";
+import * as W from "./world.js?v=dev";
+import * as P from "./props.js?v=dev";
 
 /* ---------- Text ---------- */
 
