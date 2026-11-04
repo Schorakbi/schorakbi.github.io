@@ -1,7 +1,7 @@
 /* Plain CV page. Two-column sections on wide screens, prints clean on paper. */
 .cv { padding: 56px 0 80px; max-width: 920px; }
 .cv-head { padding-bottom: 36px; border-bottom: 1px solid var(--line); }
-.cv-head h1 { font-size: clamp(48px, 7vw, 80px); }
+.cv-head h1 { font-size: clamp(42px, 6vw, 68px); letter-spacing: -.04em; }
 .cv-title { font-size: 20px; margin: 10px 0 8px; }
 .cv-contact { font-size: 13px; color: var(--muted); margin: 0 0 24px; line-height: 1.8; }
 .cv-contact a { text-decoration: none; border-bottom: 1px solid var(--line-strong); }

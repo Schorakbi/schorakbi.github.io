@@ -1,6 +1,6 @@
 /* Two themes: deep space (dark) and flight-manual paper (light). */
 :root {
-  --serif: "Instrument Serif", Georgia, serif;
+  --serif: "Space Grotesk", "IBM Plex Sans", system-ui, sans-serif; /* display font for headings and numbers */
   --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
   --radius: 14px;
@@ -46,6 +46,8 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+/* nothing may widen the page sideways (the hero art bleeds to the window edge) */
+html, body { overflow-x: clip; }
 body {
   margin: 0; min-height: 100vh; color: var(--text); font: 16px/1.6 var(--sans);
   background:
@@ -107,10 +109,10 @@ a { color: inherit; }
 
 /* Shared type */
 .kicker { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
-h1, h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -.01em; margin: 0; }
-h1 { font-size: clamp(46px, 7.4vw, 96px); line-height: .98; }
-h1 em, h2 em { color: var(--accent); }
-h2 { font-size: clamp(34px, 4.6vw, 54px); line-height: 1.05; }
+h1, h2 { font-family: var(--serif); font-weight: 500; letter-spacing: -.03em; margin: 0; }
+h1 { font-size: clamp(42px, 6.2vw, 80px); line-height: 1; }
+h1 em, h2 em { color: var(--accent); font-style: normal; }
+h2 { font-size: clamp(30px, 3.8vw, 46px); line-height: 1.1; }
 .lede { font-size: clamp(17px, 2vw, 20px); color: var(--muted); max-width: 32ch; margin: 22px 0 30px; }
 .sub { color: var(--muted); max-width: 60ch; margin: 12px 0 0; }
 .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 var(--accent); animation: pulse 2s infinite; }
@@ -207,7 +209,7 @@ section { scroll-margin-top: 80px; }
 /* Footer */
 .foot { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-top: 96px; padding: 28px 0 40px; border-top: 1px solid var(--line); }
 .foot p { margin: 0; }
-.foot-name { font: 28px var(--serif); }
+.foot-name { font: 500 22px var(--serif); letter-spacing: -.02em; }
 .foot-note { font-size: 12px; color: var(--muted); }
 .foot-links { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; font-size: 14px; }
 .foot-links a { text-decoration: none; border-bottom: 1px solid var(--line-strong); }
